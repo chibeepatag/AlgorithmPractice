@@ -19,8 +19,15 @@ public class QuickSort {
 	}
 
 	private void quickSort(int start, int end) {
+		if(end <= start){
+			return;
+		}
 		//compare contents of array of size 2
-		if (end <= start) {
+		int size = end - start;
+		if (size == 1) { 
+			if(arrToSort[end] < arrToSort[start]){
+				switchRightToLeft(start, end);
+			}			
 			return;
 		}
 		int pivotIndex = end;
@@ -36,7 +43,7 @@ public class QuickSort {
 		// pivot should be at the wall
 		switchRightToLeft(pivotIndex, wall);
 		pivotIndex = wall;
-		if (pivotIndex - start > 2) {
+		if (pivotIndex - start > 1) {
 			quickSort(start, pivotIndex - 1);
 		}
 		quickSort(pivotIndex + 1, end);
@@ -61,9 +68,9 @@ public class QuickSort {
 
 		in.close();
 		*/
-		// int intArr[] = { 7, 4, 1, 8, 6, 9, 2, 3, 5 };
-		// int intArr [] = {6, 5, 1, 3, 8, 4, 7, 9, 2};
-		 int intArr [] = {9, 2, 4, 1, 6, 8, 7, 3, 5};
+		 int intArr[] = { 7, 4, 1, 8, 6, 9, 2, 3, 5 };
+//		 int intArr [] = {6, 5, 1, 3, 8, 4, 7, 9, 2};
+//		 int intArr [] = {9, 2, 4, 1, 6, 8, 7, 3, 5};
 		return intArr;
 	}
 
