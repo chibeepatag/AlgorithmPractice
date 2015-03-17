@@ -2,6 +2,10 @@ package au.edu.cmu.algorithm;
 
 import java.util.Scanner;
 
+/**
+ * @author ChibeePatag
+ *
+ */
 public class QuickSort {
 
 	private int[] arrToSort;
@@ -15,6 +19,7 @@ public class QuickSort {
 	}
 
 	private void quickSort(int start, int end) {
+		//compare contents of array of size 2
 		if (end <= start) {
 			return;
 		}
@@ -45,7 +50,7 @@ public class QuickSort {
 	}
 
 	private static int[] getArrayToSort() {
-
+		/*
 		Scanner in = new Scanner(System.in);
 		String input = in.nextLine();
 		String[] inputArr = input.split(" ");
@@ -55,9 +60,10 @@ public class QuickSort {
 		}
 
 		in.close();
-
+		*/
 		// int intArr[] = { 7, 4, 1, 8, 6, 9, 2, 3, 5 };
 		// int intArr [] = {6, 5, 1, 3, 8, 4, 7, 9, 2};
+		 int intArr [] = {9, 2, 4, 1, 6, 8, 7, 3, 5};
 		return intArr;
 	}
 

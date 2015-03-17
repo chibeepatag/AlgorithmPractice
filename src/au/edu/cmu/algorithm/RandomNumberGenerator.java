@@ -2,6 +2,10 @@ package au.edu.cmu.algorithm;
 
 import java.util.Scanner;
 
+/**
+ * @author ChibeePatag
+ *
+ */
 public class RandomNumberGenerator {
 
 	public static int seed;
