@@ -29,26 +29,10 @@ public class WordSearch {
 		ws.getInput(System.in);
 		ws.keys = ws.words.keySet();
 		ws.horizontal();
-		ws.transposeGrid();
+		
 		ws.vertical();
 		ws.diagonal();
 		ws.printResults();
-	}
-
-	public void transposeGrid() {
-		for (String key : keys) {
-			GridAndCount gc = words.get(key);
-			gc.transposedGrid = new ArrayList<>();
-
-			for (int i = 0; i < gc.columns; i++) {
-				StringBuffer sb = new StringBuffer();
-				for (int j = 0; j < gc.rows; j++) {
-					sb.append(gc.grid.get(j).charAt(i));
-				}
-				gc.transposedGrid.add(sb.toString());
-			}
-
-		}
 	}
 
 	private void printResults() {
@@ -66,7 +50,7 @@ public class WordSearch {
 			String key = keyIterator.next();
 
 			GridAndCount gc = words.get(key);
-			for (String row : gc.grid) {
+			for (String row : gc.grid.grid) {
 				countOccurenceInstring(key, row, gc.count);
 				StringBuffer sb = new StringBuffer(row);
 				countOccurenceInstring(key, sb.reverse().toString(), gc.count);
@@ -80,7 +64,8 @@ public class WordSearch {
 			String key = keyIterator.next();
 
 			GridAndCount gc = words.get(key);
-			for (String row : gc.transposedGrid) {
+			gc.grid.transposeGrid();
+			for (String row : gc.grid.transposedGrid) {
 				countOccurenceInstring(key, row, gc.count);
 				StringBuffer sb = new StringBuffer(row);
 				countOccurenceInstring(key, sb.reverse().toString(), gc.count);
@@ -92,18 +77,18 @@ public class WordSearch {
 		for (String key : keys) {
 			GridAndCount gc = words.get(key);
 			// west side
-			for (int i = 0; i < gc.rows; i++) {
+			for (int i = 0; i < gc.grid.rows; i++) {
 				StringBuffer findIn = new StringBuffer();
-				for (int j = i, k = 0; j < gc.rows && k < gc.columns; j++, k++) {
-					findIn.append(gc.grid.get(j).charAt(k));
+				for (int j = i, k = 0; j < gc.grid.rows && k < gc.grid.columns; j++, k++) {
+					findIn.append(gc.grid.grid.get(j).charAt(k));
 				}
 				countOccurenceInstring(key, findIn.toString(), gc.count++);
 			}
 			// north side
-			for (int i = 1; i < gc.columns; i++) {
+			for (int i = 1; i < gc.grid.columns; i++) {
 				StringBuffer findIn = new StringBuffer();
-				for (int j = 0, k = i; j < gc.rows && k < gc.columns; j++, k++) {
-					findIn.append(gc.grid.get(j).charAt(k));
+				for (int j = 0, k = i; j < gc.grid.rows && k < gc.grid.columns; j++, k++) {
+					findIn.append(gc.grid.grid.get(j).charAt(k));
 				}
 				countOccurenceInstring(key, findIn.toString(), gc.count++);
 			}
@@ -127,10 +112,10 @@ public class WordSearch {
 				rows.add(input.nextLine());
 			}
 			GridAndCount gc = new GridAndCount();
-			gc.rows = noOfRows;
-			gc.columns = noOfColumns;
+			gc.grid.rows = noOfRows;
+			gc.grid.columns = noOfColumns;
 			gc.caseNo = i + 1;
-			gc.grid = rows;
+			gc.grid.grid = rows;
 			words.put(input.nextLine(), gc);
 
 		}
@@ -150,16 +135,34 @@ public class WordSearch {
 	}
 
 	class GridAndCount implements Comparable<GridAndCount> {
-		List<String> grid;
-		List<String> transposedGrid;
+		Grid grid;
 		int caseNo;
 		int count;
-		int rows;
-		int columns;
 
 		@Override
 		public int compareTo(GridAndCount o) {
 			return this.caseNo - o.caseNo;
+		}
+	}
+
+	class Grid {
+		List<String> grid;
+		List<String> transposedGrid;
+
+		int rows;
+		int columns;
+
+		public void transposeGrid() {
+			transposedGrid = new ArrayList<>();
+
+			for (int i = 0; i < columns; i++) {
+				StringBuffer sb = new StringBuffer();
+				for (int j = 0; j < rows; j++) {
+					sb.append(grid.get(j).charAt(i));
+				}
+				transposedGrid.add(sb.toString());
+			}
+
 		}
 	}
 
