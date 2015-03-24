@@ -28,14 +28,14 @@ public class WordSearch {
 
 		ws.getInput(System.in);
 		ws.keys = ws.words.keySet();
-		
-		for(String key : ws.keys){
+
+		for (String key : ws.keys) {
 			GridAndCount gc = ws.words.get(key);
-			gc.count = ws.horizontal(gc.grid.grid, key);			
+			gc.count = ws.horizontal(gc.grid.grid, key);
 		}
-		
-		//ws.vertical();
-		//ws.diagonal();
+
+		// ws.vertical();
+		// ws.diagonal();
 		ws.printResults();
 	}
 
@@ -48,43 +48,44 @@ public class WordSearch {
 		}
 	}
 
-	public int horizontal(List<String> grid, String key) {							
-		int count = 0;	
+	public int horizontal(List<String> grid, String key) {
+		int count = 0;
 		for (String row : grid) {
-				count = countOccurenceInstring(key, row, count);
-				StringBuffer sb = new StringBuffer(row);
-				count = countOccurenceInstring(key, sb.reverse().toString(), count);
-			}
-		return count;
-		
-	}
-
-	public int vertical(Grid grid, String key) {			
-			grid.transposeGrid();
-			return horizontal(grid.transposedGrid, key);
-		
-	}
-
-	public void diagonal() {
-		for (String key : keys) {
-			GridAndCount gc = words.get(key);
-			// west side
-			for (int i = 0; i < gc.grid.rows; i++) {
-				StringBuffer findIn = new StringBuffer();
-				for (int j = i, k = 0; j < gc.grid.rows && k < gc.grid.columns; j++, k++) {
-					findIn.append(gc.grid.grid.get(j).charAt(k));
-				}
-				countOccurenceInstring(key, findIn.toString(), gc.count++);
-			}
-			// north side
-			for (int i = 1; i < gc.grid.columns; i++) {
-				StringBuffer findIn = new StringBuffer();
-				for (int j = 0, k = i; j < gc.grid.rows && k < gc.grid.columns; j++, k++) {
-					findIn.append(gc.grid.grid.get(j).charAt(k));
-				}
-				countOccurenceInstring(key, findIn.toString(), gc.count++);
-			}
+			count = countOccurenceInstring(key, row, count);
+			StringBuffer sb = new StringBuffer(row);
+			count = countOccurenceInstring(key, sb.reverse().toString(), count);
 		}
+		return count;
+
+	}
+
+	public int vertical(Grid grid, String key) {
+		grid.transposeGrid();
+		return horizontal(grid.transposedGrid, key);
+
+	}
+
+	public int diagonal(Grid grid, String key) {
+		int count = 0;
+		// west side
+		for (int i = 0; i < grid.rows; i++) {
+			StringBuffer findIn = new StringBuffer();
+			for (int j = i, k = 0; j < grid.rows && k < grid.columns; j++, k++) {
+				findIn.append(grid.grid.get(j).charAt(k));
+			}
+			count = countOccurenceInstring(key, findIn.toString(), count);
+			count = countOccurenceInstring(key, findIn.reverse().toString(), count);
+		}
+		// north side
+		for (int i = 1; i < grid.columns; i++) {
+			StringBuffer findIn = new StringBuffer();
+			for (int j = 0, k = i; j < grid.rows && k < grid.columns; j++, k++) {
+				findIn.append(grid.grid.get(j).charAt(k));
+			}
+			count = countOccurenceInstring(key, findIn.toString(), count++);
+			count = countOccurenceInstring(key, findIn.reverse().toString(), count);
+		}
+		return count;
 
 	}
 
@@ -137,8 +138,6 @@ public class WordSearch {
 			return this.caseNo - o.caseNo;
 		}
 	}
-
-	
 
 }
 

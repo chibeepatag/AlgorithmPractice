@@ -65,7 +65,7 @@ public class WordSearchTest {
 	public void testHorizontal() {
 		assertEquals(1, ws.horizontal(gridCat.grid, keyCat));
 		assertEquals(2, ws.horizontal(gridDog.grid, keyDog));
-		assertEquals(2, ws.horizontal(gridNana.grid, keyNana));		
+		assertEquals(4, ws.horizontal(gridNana.grid, keyNana));		
 	}
 	
 	@Test
@@ -73,6 +73,13 @@ public class WordSearchTest {
 		assertEquals(2, ws.vertical(gridCat, keyCat));
 		assertEquals(2, ws.vertical(gridDog, keyDog));
 		assertEquals(0, ws.vertical(gridNana, keyNana));
+	}
+	
+	@Test
+	public void testDiagonal(){
+		assertEquals(1, ws.diagonal(gridCat, keyCat));
+		assertEquals(2, ws.diagonal(gridDog, keyDog));
+		assertEquals(0, ws.diagonal(gridNana, keyNana));
 	}
 
 }
