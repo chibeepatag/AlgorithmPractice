@@ -78,7 +78,7 @@ public class WordSearchTest {
 	@Test
 	public void testDiagonal(){
 		assertEquals(1, ws.diagonal(gridCat, keyCat));
-		assertEquals(2, ws.diagonal(gridDog, keyDog));
+		assertEquals(4, ws.diagonal(gridDog, keyDog));
 		assertEquals(0, ws.diagonal(gridNana, keyNana));
 	}
 

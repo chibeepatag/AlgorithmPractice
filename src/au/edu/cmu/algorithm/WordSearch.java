@@ -31,11 +31,11 @@ public class WordSearch {
 
 		for (String key : ws.keys) {
 			GridAndCount gc = ws.words.get(key);
-			gc.count = ws.horizontal(gc.grid.grid, key);
+			gc.count = gc.count + ws.horizontal(gc.grid.grid, key);
+			gc.count = gc.count + ws.vertical(gc.grid, key);
+			gc.count = gc.count + ws.diagonal(gc.grid, key);
 		}
 
-		// ws.vertical();
-		// ws.diagonal();
 		ws.printResults();
 	}
 
@@ -67,7 +67,7 @@ public class WordSearch {
 
 	public int diagonal(Grid grid, String key) {
 		int count = 0;
-		// west side
+		// west side NW to SE
 		for (int i = 0; i < grid.rows; i++) {
 			StringBuffer findIn = new StringBuffer();
 			for (int j = i, k = 0; j < grid.rows && k < grid.columns; j++, k++) {
@@ -76,18 +76,40 @@ public class WordSearch {
 			count = countOccurenceInstring(key, findIn.toString(), count);
 			count = countOccurenceInstring(key, findIn.reverse().toString(), count);
 		}
-		// north side
+		// north side NW to SE
 		for (int i = 1; i < grid.columns; i++) {
 			StringBuffer findIn = new StringBuffer();
 			for (int j = 0, k = i; j < grid.rows && k < grid.columns; j++, k++) {
 				findIn.append(grid.grid.get(j).charAt(k));
 			}
-			count = countOccurenceInstring(key, findIn.toString(), count++);
+			count = countOccurenceInstring(key, findIn.toString(), count);
+			count = countOccurenceInstring(key, findIn.reverse().toString(), count);
+		}
+		//north side NE to SW
+		for (int i = grid.columns-1; i >= 0; i--){
+			StringBuffer findIn = new StringBuffer();
+			for (int j = 0, k = i; j < grid.rows && k >= 0; j++, k--){//j - row, k column
+				findIn.append(grid.grid.get(j).charAt(k));
+			}
+			count = countOccurenceInstring(key, findIn.toString(), count);
+			count = countOccurenceInstring(key, findIn.reverse().toString(), count);
+			
+		}
+		
+		//east side NE to SW
+		for (int i = 1; i < grid.rows; i++){
+			StringBuffer findIn = new StringBuffer();
+			for(int j = i, k = grid.columns -1; j < grid.rows && k >=0; j++, k--){
+				findIn.append(grid.grid.get(j).charAt(k));
+			}
+			count = countOccurenceInstring(key, findIn.toString(), count);
 			count = countOccurenceInstring(key, findIn.reverse().toString(), count);
 		}
 		return count;
 
 	}
+	
+	
 
 	public void getInput(InputStream in) {
 		Scanner input = new Scanner(in);
