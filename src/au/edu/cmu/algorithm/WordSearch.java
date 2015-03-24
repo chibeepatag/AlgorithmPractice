@@ -28,10 +28,14 @@ public class WordSearch {
 
 		ws.getInput(System.in);
 		ws.keys = ws.words.keySet();
-		ws.horizontal();
 		
-		ws.vertical();
-		ws.diagonal();
+		for(String key : ws.keys){
+			GridAndCount gc = ws.words.get(key);
+			gc.count = ws.horizontal(gc.grid.grid, key);			
+		}
+		
+		//ws.vertical();
+		//ws.diagonal();
 		ws.printResults();
 	}
 
@@ -44,33 +48,21 @@ public class WordSearch {
 		}
 	}
 
-	public void horizontal() {
-		Iterator<String> keyIterator = keys.iterator();
-		while (keyIterator.hasNext()) {
-			String key = keyIterator.next();
-
-			GridAndCount gc = words.get(key);
-			for (String row : gc.grid.grid) {
-				countOccurenceInstring(key, row, gc.count);
+	public int horizontal(List<String> grid, String key) {							
+		int count = 0;	
+		for (String row : grid) {
+				count = countOccurenceInstring(key, row, count);
 				StringBuffer sb = new StringBuffer(row);
-				countOccurenceInstring(key, sb.reverse().toString(), gc.count);
+				count = countOccurenceInstring(key, sb.reverse().toString(), count);
 			}
-		}
+		return count;
+		
 	}
 
-	public void vertical() {
-		Iterator<String> keyIterator = keys.iterator();
-		while (keyIterator.hasNext()) {
-			String key = keyIterator.next();
-
-			GridAndCount gc = words.get(key);
-			gc.grid.transposeGrid();
-			for (String row : gc.grid.transposedGrid) {
-				countOccurenceInstring(key, row, gc.count);
-				StringBuffer sb = new StringBuffer(row);
-				countOccurenceInstring(key, sb.reverse().toString(), gc.count);
-			}
-		}
+	public int vertical(Grid grid, String key) {			
+			grid.transposeGrid();
+			return horizontal(grid.transposedGrid, key);
+		
 	}
 
 	public void diagonal() {
@@ -112,6 +104,7 @@ public class WordSearch {
 				rows.add(input.nextLine());
 			}
 			GridAndCount gc = new GridAndCount();
+			gc.grid = new Grid();
 			gc.grid.rows = noOfRows;
 			gc.grid.columns = noOfColumns;
 			gc.caseNo = i + 1;
@@ -123,7 +116,7 @@ public class WordSearch {
 		input.close();
 	}
 
-	private int countOccurenceInstring(String key, String findIn, int count) {
+	int countOccurenceInstring(String key, String findIn, int count) {
 		String reducedFindIn = findIn;
 		int index = reducedFindIn.indexOf(key);
 		while (index >= 0) {
@@ -145,25 +138,27 @@ public class WordSearch {
 		}
 	}
 
-	class Grid {
-		List<String> grid;
-		List<String> transposedGrid;
+	
 
-		int rows;
-		int columns;
+}
 
-		public void transposeGrid() {
-			transposedGrid = new ArrayList<>();
+class Grid {
+	List<String> grid;
+	List<String> transposedGrid;
 
-			for (int i = 0; i < columns; i++) {
-				StringBuffer sb = new StringBuffer();
-				for (int j = 0; j < rows; j++) {
-					sb.append(grid.get(j).charAt(i));
-				}
-				transposedGrid.add(sb.toString());
+	int rows;
+	int columns;
+
+	public void transposeGrid() {
+		transposedGrid = new ArrayList<>();
+
+		for (int i = 0; i < columns; i++) {
+			StringBuffer sb = new StringBuffer();
+			for (int j = 0; j < rows; j++) {
+				sb.append(grid.get(j).charAt(i));
 			}
-
+			transposedGrid.add(sb.toString());
 		}
-	}
 
+	}
 }
