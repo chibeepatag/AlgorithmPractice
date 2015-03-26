@@ -23,7 +23,7 @@ public class ArmyCounter {
 		List<Kingdom> kingdoms = ac.getInput(System.in);
 	}
 
-	public void assignLabel(Point[][] map) {
+	public void assignRegion(Point[][] map) {
 		int i = 0;
 		int j = 0;
 		int region = 1;

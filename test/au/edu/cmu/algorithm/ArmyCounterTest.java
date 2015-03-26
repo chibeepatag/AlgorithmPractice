@@ -42,9 +42,35 @@ public class ArmyCounterTest {
 			List<Kingdom> kingdoms = ac.getInput(in);
 			
 			for (Kingdom kingdom : kingdoms) {
-				ac.assignLabel(kingdom.map);
+				ac.assignRegion(kingdom.map);
 			}
 			
+			
+			int expectedRegions[][] = {
+										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
+										{0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1, 1},
+										{0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 3, 0, 1, 1},
+										{4, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 1, 1},
+										{0, 0, 5, 5, 5, 0, 6, 6, 6, 0, 3, 3, 0, 1, 1},
+										{0, 5, 5, 5, 0, 6, 6, 6, 0, 3, 3, 3, 0, 0, 0},
+										{0, 0, 0, 0, 7, 0, 6, 0, 8, 0, 0, 0, 9, 9, 0},
+										{7, 7, 7, 7, 7, 7, 0, 8, 8, 8, 8, 0, 9, 9, 0},
+										{7, 0, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+										{7, 0, 7, 7, 7, 7, 0, 10,10,0, 11,11,11,11,11},
+										{7, 0, 0, 0, 0, 0, 0, 10,10,0, 11,11,11,11,11},
+										{7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 11,11,11,11,11}
+			};
+			
+			
+			for(int i = 0; i < expectedRegions.length; i++){
+				for(int j = 0; j < expectedRegions[0].length; j++){
+					assertEquals(expectedRegions[i][j], kingdoms.get(0).map[i][j].region);
+				}
+			}
+			
+			
+			
+			//printing to console
 			Point[][] map = kingdoms.get(0).map;
 			for(int i = 0; i < map.length; i++){
 				Point[] pointArr = map[i];
@@ -52,7 +78,7 @@ public class ArmyCounterTest {
 					System.out.printf("%3d", pointArr[j].region);
 				}
 				System.out.println("");
-			}
+			}//end of printing to console
 			in.close();
 		} catch (FileNotFoundException e) {
 			fail("File not found exception.");
