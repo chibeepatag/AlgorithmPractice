@@ -27,22 +27,24 @@ public class ArmyCounter {
 		int i = 0;
 		int j = 0;
 		int region = 1;
+		// first pass
 		while (i < map.length) {
 			while (j < map[0].length) {
 				if (map[i][j].label == '.'
 						|| (map[i][j].label >= 97 && map[i][j].label <= 122)) {
-					if (i > 0 && j > 0 && map[i][j - 1].region > 0 && map[i - 1][j].region > 0) {
+					if (i > 0 && j > 0 && map[i][j - 1].region > 0
+							&& map[i - 1][j].region > 0) {
 						int westRegion = map[i][j - 1].region;
-						int northRegion = map[i-1][j].region;
-						if(westRegion > 0 && northRegion > 0){
-							if(westRegion < northRegion){
+						int northRegion = map[i - 1][j].region;
+						if (westRegion > 0 && northRegion > 0) {
+							if (westRegion < northRegion) {
 								map[i][j].region = westRegion;
-							}else{
+							} else {
 								map[i][j].region = northRegion;
-							}							
-						}else if(westRegion > 0){
+							}
+						} else if (westRegion > 0) {
 							map[i][j].region = westRegion;
-						}else if (northRegion > 0){
+						} else if (northRegion > 0) {
 							map[i][j].region = northRegion;
 						}
 					} else if (j > 0 && map[i][j - 1].region > 0) {
@@ -56,6 +58,33 @@ public class ArmyCounter {
 				} else {
 					j++;
 				}
+			}
+			j = 0;
+			i++;
+		}
+		// second pass
+
+		i = 0;
+		j = 0;
+		while (i < map.length) {
+			while (j < map[0].length) {
+				if (map[i][j].label == '.'
+						|| (map[i][j].label >= 97 && map[i][j].label <= 122)) {
+					if (i > 0 && j > 0 && map[i][j - 1].region > 0
+							&& map[i - 1][j].region > 0) {
+						int westRegion = map[i][j - 1].region;
+						int northRegion = map[i - 1][j].region;
+						if (westRegion > 0 && northRegion > 0) {
+							if (westRegion < northRegion) {
+								map[i][j].region = westRegion;
+								map[i - 1][j].region = westRegion;
+							} else {
+								map[i][j].region = northRegion;
+								map[i][j - 1].region = northRegion;
+							}
+						} 						
+					}
+				} j++;
 			}
 			j = 0;
 			i++;

@@ -35,7 +35,7 @@ public class ArmyCounterTest {
 	}
 
 	@Test
-	public void testRegionsFound() {
+	public void testAssignLabel() {
 		try {
 			InputStream in = new FileInputStream("ArmyCounterTestData");
 			ArmyCounter ac = new ArmyCounter();
