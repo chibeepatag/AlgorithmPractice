@@ -37,19 +37,21 @@ public class ArmyCounter {
 						int westRegion = map[i][j - 1].region;
 						int northRegion = map[i - 1][j].region;
 						if (westRegion > 0 && northRegion > 0) {
-							if (westRegion < northRegion) {
+							if (westRegion < northRegion) { //take the smaller region
 								map[i][j].region = westRegion;
+								mergePrecedingRegion(map, j, i);
 							} else {
 								map[i][j].region = northRegion;
+								mergePrecedingRegion(map, j, i);
 							}
-						} else if (westRegion > 0) {
+						}/* else if (westRegion > 0) {
 							map[i][j].region = westRegion;
 						} else if (northRegion > 0) {
 							map[i][j].region = northRegion;
-						}
-					} else if (j > 0 && map[i][j - 1].region > 0) {
+						}*/
+					} else if (j > 0 && map[i][j - 1].region > 0) { //west region
 						map[i][j].region = map[i][j - 1].region;
-					} else if (i > 0 && map[i - 1][j].region > 0) {
+					} else if (i > 0 && map[i - 1][j].region > 0) { //north region
 						map[i][j].region = map[i - 1][j].region;
 					} else {
 						map[i][j].region = region++;
@@ -90,6 +92,18 @@ public class ArmyCounter {
 			i++;
 		}
 
+	}
+	
+	private Point[][] mergePrecedingRegion(Point[][] map, int column, int row){
+		while(column > 0){
+			if(map[row][column-1].region > 0){
+				map[row][column-1].region = map[row][column].region;
+				column--;				
+			}else{
+				break;
+			}
+		}
+		return map;
 	}
 
 	public List<Kingdom> getInput(InputStream in) {
