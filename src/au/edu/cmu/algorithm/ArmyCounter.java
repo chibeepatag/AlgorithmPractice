@@ -24,14 +24,14 @@ public class ArmyCounter {
 		ArmyCounter ac = new ArmyCounter();
 		List<Kingdom> kingdoms = ac.getInput(System.in);
 		for (int i = 0; i < kingdoms.size(); i++) {
-			Kingdom kingdom = kingdoms.get(0);
+			Kingdom kingdom = kingdoms.get(i);
 			ac.assignRegion(kingdom.map);
 			Set<Region> regions = new HashSet<Region>(
 					ac.createCollectionOfRegions(kingdom.map));
 			int contested = ac.setRulingArmy(regions);
 			kingdom.contested = contested;
 			
-			System.out.printf("Case %d\n", i+1);
+			System.out.printf("Case %d \n", i+1);
 			Map<Character, Integer> armyMap = ac.getCountOfRegionsPerArmy(regions);
 			List<Character> armies = new ArrayList<>( armyMap.keySet())  ;
 			Collections.sort(armies);
@@ -40,7 +40,7 @@ public class ArmyCounter {
 					System.out.printf("%c %d\n", character.charValue(), armyMap.get(character));					
 				}
 			}
-			System.out.printf("Contested %d", kingdom.contested);
+			System.out.printf("Contested %d \n", kingdom.contested);
 			
 		}
 	}
