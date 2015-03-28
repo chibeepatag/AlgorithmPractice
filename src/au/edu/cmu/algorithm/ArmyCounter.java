@@ -31,7 +31,7 @@ public class ArmyCounter {
 			int contested = ac.setRulingArmy(regions);
 			kingdom.contested = contested;
 			
-			System.out.printf("Case %d \n", i+1);
+			System.out.printf("Case %d: \n", i+1);
 			Map<Character, Integer> armyMap = ac.getCountOfRegionsPerArmy(regions);
 			List<Character> armies = new ArrayList<>( armyMap.keySet())  ;
 			Collections.sort(armies);
@@ -40,7 +40,7 @@ public class ArmyCounter {
 					System.out.printf("%c %d\n", character.charValue(), armyMap.get(character));					
 				}
 			}
-			System.out.printf("Contested %d \n", kingdom.contested);
+			System.out.printf("contested %d\n", kingdom.contested);
 			
 		}
 	}
