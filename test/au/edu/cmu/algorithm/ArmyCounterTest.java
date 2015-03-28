@@ -45,7 +45,7 @@ public class ArmyCounterTest {
 				ac.assignRegion(kingdom.map);
 			}
 			
-			
+			/*
 			int expectedRegions[][] = {
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
 										{0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1, 1},
@@ -60,14 +60,27 @@ public class ArmyCounterTest {
 										{7, 0, 0, 0, 0, 0, 0, 10,10,0, 11,11,11,11,11},
 										{7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 11,11,11,11,11}
 			};
+			*/
+			int expectedRegions[][] = {
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 },
+					{ 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1, 1 },
+					{ 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 3, 0, 1, 1 },
+					{ 4, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 1, 1 },
+					{ 0, 0, 5, 5, 5, 0, 6, 6, 6, 0, 3, 3, 0, 1, 1 },
+					{ 0, 5, 5, 5, 0, 6, 6, 6, 0, 3, 3, 3, 0, 0, 0 },
+					{ 0, 0, 0, 0, 11,0, 6, 0,12, 0, 0, 0, 13,13,0 },
+					{ 11, 11, 11, 11, 11, 11, 0, 12, 12, 12, 12, 0, 13, 13, 0 },
+					{ 11, 0, 11, 11, 11, 11, 0, 0,  0,  0, 0,  0,  0,  0,  0 },
+					{ 11, 0,  11, 11, 11, 11, 0, 16, 16, 0, 17, 17, 17, 17, 17 },
+					{ 11, 0,  0,  0,  0,  0,  0, 16, 16, 0, 17, 17, 17, 17, 17 },
+					{ 11, 11, 11, 11, 11, 11, 0,  0,  0, 0, 17, 17, 17, 17, 17 } };
 			
-			/*
+			
 			for(int i = 0; i < expectedRegions.length; i++){
 				for(int j = 0; j < expectedRegions[0].length; j++){
 					assertEquals(expectedRegions[i][j], kingdoms.get(0).map[i][j].region);
 				}
-			}
-			*/
+			}			
 			
 			
 			//printing to console
@@ -87,6 +100,16 @@ public class ArmyCounterTest {
 			fail("IOException.");
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void testCreateCollectionOfRegions(){
+		ArmyCounter ac = new ArmyCounter();
+		
+		
+		//Point[][] map 
+		
+//		ac.createCollectionOfRegions(map);
 	}
 
 }
