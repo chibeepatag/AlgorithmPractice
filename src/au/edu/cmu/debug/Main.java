@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
     static int binarySearch(int[] array, int value, int low, int high) {
         int mid;
-        if (high <= low) {
+        if (high < low) {
             return -1;
         } else {
             mid = (low + high)/2;
